@@ -1,7 +1,7 @@
 from conc_Individual import *
 
 # enter path where the different concentrations are available.
-date_path = r'F:\Projects\MyLab\HGB_conc\Hb 19 July' # this has to be user input. 
+date_path = r'F:\Projects\MyLab\HGB_conc\19_July' # this has to be user input. 
 
 # sorted
 sorted_conc_folders = sorted(os.listdir(date_path), key=lambda x: float(x))
