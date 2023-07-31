@@ -57,6 +57,15 @@ This `conc_Individual.py` has a class that has an attribute for the folder of th
 This is a notebook created that checks mutual information of available features and target (concentration value).
 According to me, based on the results, the features with mutual information > 1 are overfit. Path and pkPxls_G got values > 1.
 
+To run the whole process:
++ There should be a date folder that has subfolders of all concentration, that have only images in them.
++ Copy date folder path in `prep_img.py` and `crop_img.py` and run the scripts individually.
++ Copy path of the date folder and paste it in `main_individual.py`.
++ Run `main_individual.py`.
++ Run `mastercsv.py`.
++ Run `app.py`.
++ In order to reset the data the is displayed on app.py, you have to delete the master.csv that is created.
+
 # Roadblocks:
 + Deployment is pending.
 + Input field does not accept input.
