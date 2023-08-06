@@ -2,9 +2,9 @@ from myimports import *
 
 class ConcIndi:
     def __init__(self, conc_folder):
-        self.conc_folder = conc_folder
-        self.conc_list = []
-        self.hist_list = []
+        self.conc_folder = conc_folder # folder for concentration
+        self.conc_list = [] # list that stores dict for each image present
+        self.hist_list = [] # histogram list
         
     
     def fill_img_data(self, img_path):

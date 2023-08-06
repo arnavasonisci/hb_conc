@@ -32,4 +32,34 @@ def makeMaster():
     print(master_df.tail())
 
     master_df.to_csv(master_df_path, index=False)
-    return master_df
+
+    avg_vals_total = {}
+    columns = master_df.columns
+    for conc in master_df['Conc'].unique():
+        avg_vals = {}
+        master_df_temp = master_df.loc[master_df['Conc'] == conc]
+
+        for column in columns:
+            if 'Peaks' in column:
+                avg_vals[f'{column}_avg'] = master_df_temp[column].mean()
+        avg_vals_total[conc] = avg_vals
+
+    avg_vals_total_df = pd.DataFrame(avg_vals_total)
+    avg_vals_total_df = avg_vals_total_df.transpose()
+    print(avg_vals_total_df)
+    avg_vals_total_df['Conc'] = avg_vals_total_df.index
+
+    avg_cols = list(avg_vals_total_df.columns)
+    avg_cols.pop()
+    cols_new = ['Conc']
+    for ele in avg_cols:
+        cols_new.append(ele)
+
+    avg_vals_total_df = avg_vals_total_df.reindex(columns=cols_new)
+    avg_vals_total_df = avg_vals_total_df.reset_index(drop=True)
+    
+    print('Last print call ----------------\n', avg_vals_total_df)
+    return master_df, avg_vals_total_df
+
+if __name__ == '__main__':
+    mdf, avtdf = makeMaster()

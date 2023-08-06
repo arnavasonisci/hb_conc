@@ -1,7 +1,7 @@
 from conc_Individual import *
-
-# enter path where the different concentrations are available.
-date_path = r"F:\Projects\MyLab\HGB_conc\28_July" # this has to be user input. 
+  
+date_path = input('Enter the folder path: ') # this has to be user input.
+date_path = r'{}'.format(date_path)
 
 # sorted
 sorted_conc_folders = sorted(os.listdir(date_path), key=lambda x: float(x))
@@ -51,6 +51,32 @@ cols = [
 
 df = df[cols]
 
+# check iloc and loc 
+avg_vals_total = {}
+columns = df.columns
+for conc in df['Conc'].unique():
+    avg_vals = {}
+    df_temp = df.loc[df['Conc'] == conc]
+
+    for column in columns:
+        if 'Peaks' in column:
+            avg_vals[f'{column}_avg'] = df_temp[column].mean()
+    avg_vals_total[conc] = avg_vals
+
+avg_vals_total_df = pd.DataFrame(avg_vals_total)
+print(avg_vals_total_df)
+avg_vals_total_df = avg_vals_total_df.transpose()
+avg_vals_total_df['Conc'] = avg_vals_total_df.index
+
+avg_cols = list(avg_vals_total_df.columns)
+avg_cols.pop()
+cols_new = ['Conc']
+for ele in avg_cols:
+    cols_new.append(ele)
+
+avg_vals_total_df = avg_vals_total_df.reindex(columns=cols_new)
+
+print(avg_vals_total_df)
 # df.to_csv(r'F:\Projects\MyLab\HGB_conc\Data\temp\temp_data_date.csv')
 # print('Hellooooo\n\n', df.columns)
 # print('success')

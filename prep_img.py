@@ -1,7 +1,8 @@
 from myimports import *
 
 # give date dir path
-date_folder = r"F:\Projects\MyLab\HGB_conc\28_July"
+date_folder = input('Enter the folder path: ')
+date_folder = r'{}'.format(date_folder)
 
 for conc in os.listdir(date_folder):
     # concentration subfolder path

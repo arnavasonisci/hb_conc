@@ -1,7 +1,7 @@
 from mastercsv import *
 
 # incorporate the data
-df = makeMaster()
+df, avg_df = makeMaster()
 
 print(df.shape)
 # initialize the app
@@ -40,6 +40,7 @@ app.layout = html.Div([
             placeholder="input date folder path"
         )
     ),
+
     html.H2(children='App with data'),
     dash_table.DataTable(
         columns=[
@@ -47,8 +48,16 @@ app.layout = html.Div([
         ],
         data=df.to_dict('records'),
         filter_action = 'native',
-        page_size=10,
-        
+        page_size=10 
+    ),
+
+    html.H2(children='Average data'),
+    dash_table.DataTable(
+        columns=[
+            {'name': i, 'id': i, 'type': table_type(avg_df[i])} for i in avg_df.columns
+        ],
+        data=avg_df.to_dict('records'),
+        page_size = 5 
     ),
     # channel subplots
     html.H2(children='Peak Values'),
@@ -100,15 +109,15 @@ def update_subplots(figure):
     
     '''
 
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_B').data[0], row=1, col=1)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_G').data[0], row=1, col=2)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_R').data[0], row=1, col=3)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_H').data[0], row=2, col=1)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_S').data[0], row=2, col=2)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_V').data[0], row=2, col=3)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_L').data[0], row=3, col=1)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_a').data[0], row=3, col=2)
-    fig.add_trace(px.scatter(df, x='Conc', y='Peaks_b').data[0], row=3, col=3)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_B_avg').data[0], row=1, col=1)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_G_avg').data[0], row=1, col=2)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_R_avg').data[0], row=1, col=3)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_H_avg').data[0], row=2, col=1)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_S_avg').data[0], row=2, col=2)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_V_avg').data[0], row=2, col=3)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_L_avg').data[0], row=3, col=1)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_a_avg').data[0], row=3, col=2)
+    fig.add_trace(px.scatter(avg_df, x='Conc', y='Peaks_b_avg').data[0], row=3, col=3)
 
     fig.update_layout(height=1200, showlegend=False)
 
